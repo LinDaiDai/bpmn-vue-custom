@@ -16,7 +16,8 @@ export default {
   data () {
     return {
       links: [
-        { to: '/custom-palette', title: '自定义palette' }
+        { to: '/custom-palette', title: '自定义palette' },
+        { to: '/custom-modeler', title: '自定义modeler' }
       ]
     }
   }
