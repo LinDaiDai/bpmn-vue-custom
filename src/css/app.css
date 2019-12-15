@@ -12,3 +12,7 @@
 .icon-custom.lindaidai-task {
     background-image: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/rules.png');
 }
+
+.icon-custom.icon-custom-start {
+    background-image: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/start.png');
+}

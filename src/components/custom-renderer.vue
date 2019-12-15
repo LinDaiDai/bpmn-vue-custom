@@ -8,9 +8,9 @@
 <script>
 // 引入相关的依赖
 import BpmnModeler from 'bpmn-js/lib/Modeler'
-import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda'
+// import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda'
 import { xmlStr } from '../mock/xmlStr'
-import customModule from './custom/ImportJS/onlyPalette'
+import customModule from './custom/ImportJS/onlyRenderer'
 export default {
   name: '',
   components: {},
@@ -42,7 +42,7 @@ export default {
       },
       additionalModules: [
         // 左边工具栏以及节点
-        propertiesProviderModule,
+        // propertiesProviderModule,
         customModule
       ]
     })

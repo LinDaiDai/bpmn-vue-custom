@@ -32,7 +32,25 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
         }
     }
 
+    function createStratEvent() {
+        return function(event) {
+            const shape = elementFactory.createShape({
+                type: 'bpmn:StartEvent'
+            });
+            create.start(event, shape);
+        }
+    }
+
     return {
+        'create.start-event': {
+            group: 'event',
+            className: 'icon-custom icon-custom-start',
+            title: '创建开始节点',
+            action: {
+                dragstart: createStratEvent(),
+                click: createStratEvent()
+            }
+        },
         'create.lindaidai-task': {
             group: 'model',
             className: 'icon-custom lindaidai-task',

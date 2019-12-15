@@ -12,6 +12,11 @@ const routes = [{
             import ('./../components/custom-palette')
     },
     {
+        path: '/custom-renderer',
+        component: () =>
+            import ('../components/custom-renderer')
+    },
+    {
         path: '/custom-modeler',
         component: () =>
             import ('../components/custom-modeler')
