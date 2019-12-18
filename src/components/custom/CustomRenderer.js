@@ -5,7 +5,7 @@ import {
     attr as svgAttr,
     create as svgCreate
 } from 'tiny-svg';
-import { customElements, customConfig } from '../utils/util'
+import { customElements, customConfig, hasLabelElements } from '../utils/util'
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
 const HIGH_PRIORITY = 1500
@@ -34,6 +34,18 @@ export default class CustomRenderer extends BaseRenderer {
             element['width'] = attr.width // 这里我是取了巧, 直接修改了元素的宽高
             element['height'] = attr.height
             svgAppend(parentNode, customIcon)
+                // 判断是否有name属性来决定是否要渲染出label
+            if (!hasLabelElements.includes(type) && element.businessObject.name) {
+                const text = svgCreate('text', {
+                    x: attr.x,
+                    y: attr.y + attr.height + 20,
+                    "font-size": "14",
+                    "fill": "#000"
+                })
+                text.innerHTML = element.businessObject.name
+                svgAppend(parentNode, text)
+                console.log(text)
+            }
             return customIcon
         }
         const shape = this.bpmnRenderer.drawShape(parentNode, element)

@@ -4,7 +4,7 @@ export var xmlStr = `<?xml version="1.0" encoding="UTF-8"?>
     <startEvent id="StartEvent_1y45yut" name="开始">
     <outgoing>SequenceFlow_0h21x7r</outgoing>
     </startEvent>
-    <task id="Task_1hcentk">
+    <task id="Task_1hcentk" name="lindaidai">
     <incoming>SequenceFlow_0h21x7r</incoming>
     </task>
     <sequenceFlow id="SequenceFlow_0h21x7r" sourceRef="StartEvent_1y45yut" targetRef="Task_1hcentk" />
