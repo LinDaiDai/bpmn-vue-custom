@@ -18,7 +18,28 @@
 }
 
 
+/* label标签 */
+
+
 /* .djs-direct-editing-parent {
     top: 130px!important;
     width: 60px!important;
 } */
+
+
+/* 自定义 contextPad 的样式 */
+
+.djs-context-pad .lindaidai-task.entry:hover {
+    background: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/rules.png') center no-repeat!important;
+    background-size: cover!important;
+}
+
+.djs-context-pad .entry:hover {
+    border: 1px solid #1890ff;
+}
+
+.djs-context-pad .entry {
+    box-sizing: border-box;
+    background-size: 94%;
+    transition: all 0.3s;
+}

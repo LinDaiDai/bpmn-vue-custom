@@ -20,6 +20,11 @@ const routes = [{
         path: '/custom-modeler',
         component: () =>
             import ('../components/custom-modeler')
+    },
+    {
+        path: '/custom-context-pad',
+        component: () =>
+            import ('../components/custom-context-pad')
     }
 ]
 

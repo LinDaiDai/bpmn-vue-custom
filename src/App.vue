@@ -18,6 +18,7 @@ export default {
       links: [
         { to: '/custom-palette', title: '自定义palette' },
         { to: '/custom-renderer', title: '自定义renderer' },
+        { to: '/custom-context-pad', title: '自定义contextPad' },
         { to: '/custom-modeler', title: '自定义modeler' }
       ]
     }
