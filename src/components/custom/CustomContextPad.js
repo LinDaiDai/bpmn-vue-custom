@@ -1,8 +1,9 @@
 export default class CustomContextPad {
-    constructor(config, contextPad, create, elementFactory, injector, translate) {
+    constructor(config, contextPad, create, elementFactory, injector, translate, modeling) {
         this.create = create;
         this.elementFactory = elementFactory;
         this.translate = translate;
+        this.modeling = modeling;
 
         if (config.autoPlace !== false) {
             this.autoPlace = injector.get('autoPlace', false);
@@ -16,8 +17,17 @@ export default class CustomContextPad {
             autoPlace,
             create,
             elementFactory,
-            translate
+            translate,
+            modeling
         } = this;
+        // 删除功能
+        function removeElement(e) {
+            modeling.removeElements([element])
+        }
+
+        function clickElement(e) {
+            console.log(element)
+        }
 
         function appendTask(event, element) {
             console.log(autoPlace)
@@ -35,6 +45,27 @@ export default class CustomContextPad {
             create.start(event, shape, element);
         }
 
+        function editElement() { // 创建编辑图标
+            return {
+                group: 'edit',
+                className: 'icon-custom icon-custom-edit',
+                title: translate('编辑'),
+                action: {
+                    click: clickElement
+                }
+            }
+        }
+
+        function deleteElement() {
+            return {
+                group: 'edit',
+                className: 'icon-custom icon-custom-delete',
+                title: translate('删除'),
+                action: {
+                    click: removeElement
+                }
+            }
+        }
         return {
             'append.lindaidai-task': {
                 group: 'model',
@@ -44,7 +75,9 @@ export default class CustomContextPad {
                     click: appendTask,
                     dragstart: appendTaskStart
                 }
-            }
+            },
+            'edit': editElement(),
+            'delete': deleteElement()
         }
     }
 }
@@ -55,5 +88,6 @@ CustomContextPad.$inject = [
     'create',
     'elementFactory',
     'injector',
-    'translate'
+    'translate',
+    'modeling'
 ];

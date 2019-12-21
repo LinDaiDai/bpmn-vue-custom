@@ -17,6 +17,18 @@
     background-image: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/start.png');
 }
 
+.icon-custom-flow {
+    background-image: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/flow.png');
+}
+
+.icon-custom-edit {
+    background-image: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/edit.png');
+}
+
+.icon-custom-delete {
+    background-image: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/delete.png');
+}
+
 
 /* label标签 */
 
@@ -31,6 +43,31 @@
 
 .djs-context-pad .lindaidai-task.entry:hover {
     background: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/rules.png') center no-repeat!important;
+    background-size: cover!important;
+}
+
+.djs-context-pad .icon-custom-start.entry:hover {
+    background: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/start.png') center no-repeat!important;
+    background-size: cover!important;
+}
+
+.djs-context-pad .icon-custom-end.entry:hover {
+    background: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/end.png') center no-repeat!important;
+    background-size: cover!important;
+}
+
+.djs-context-pad .icon-custom-flow.entry:hover {
+    background: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/flow.png') center no-repeat!important;
+    background-size: cover!important;
+}
+
+.djs-context-pad .icon-custom-edit.entry:hover {
+    background: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/edit.png') center no-repeat!important;
+    background-size: cover!important;
+}
+
+.djs-context-pad .icon-custom-delete.entry:hover {
+    background: url('https://hexo-blog-1256114407.cos.ap-shenzhen-fsi.myqcloud.com/delete.png') center no-repeat!important;
     background-size: cover!important;
 }
 

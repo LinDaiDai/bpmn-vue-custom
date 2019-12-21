@@ -1,3 +1,4 @@
+import store from '../../../store'
 export default function ContextPadProvider(contextPad, config, injector, translate, bpmnFactory, elementFactory, create, modeling, connect) {
     this.create = create
     this.elementFactory = elementFactory
@@ -7,7 +8,7 @@ export default function ContextPadProvider(contextPad, config, injector, transla
     this.connect = connect
     config = config || {}
     if (config.autoPlace !== false) {
-        this._autoPlace = injector.get('autoPlace', false)
+        this.autoPlace = injector.get('autoPlace', false);
     }
     contextPad.registerProvider(this)
 }
@@ -29,8 +30,21 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
         autoPlace,
         create,
         elementFactory,
-        translate
+        translate,
+        modeling
     } = this;
+    // 删除功能
+    function removeElement(e) {
+        modeling.removeElements([element])
+    }
+
+    function clickElement(e) {
+        console.log(element)
+            // window.localStorage.setItem('nodeInfo', JSON.stringify(element))
+            // window.localStorage.setItem('nodeVisible', 'true')
+        store.commit('SETNODEINFO', element)
+        store.commit('TOGGLENODEVISIBLE', true)
+    }
 
     function appendTask(event, element) {
         console.log(autoPlace)
@@ -48,6 +62,28 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
         create.start(event, shape, element);
     }
 
+    function editElement() { // 创建编辑图标
+        return {
+            group: 'edit',
+            className: 'icon-custom icon-custom-edit',
+            title: translate('编辑'),
+            action: {
+                click: clickElement
+            }
+        }
+    }
+
+    function deleteElement() {
+        return {
+            group: 'edit',
+            className: 'icon-custom icon-custom-delete',
+            title: translate('删除'),
+            action: {
+                click: removeElement
+            }
+        }
+    }
+
     return {
         'append.lindaidai-task': {
             group: 'model',
@@ -57,6 +93,8 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
                 click: appendTask,
                 dragstart: appendTaskStart
             }
-        }
+        },
+        'edit': editElement(),
+        'delete': deleteElement()
     }
 }

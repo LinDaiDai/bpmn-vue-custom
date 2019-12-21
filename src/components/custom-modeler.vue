@@ -2,6 +2,18 @@
   <div class="containers">
     <div class="canvas" ref="canvas"></div>
     <div id="js-properties-panel" class="panel"></div>
+    <div class="modal" v-if="bpmnNodeVisible" @click="close">
+      <div class="modal-content">
+        <div class="modal-ctx">
+          <div class="modal-item">
+            节点id: {{ bpmnNodeInfo.id }}
+          </div>
+          <div class="modal-item">
+            节点type: {{ bpmnNodeInfo.type }}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -9,6 +21,7 @@
 // 引入相关的依赖
 import { xmlStr } from '../mock/xmlStr'
 import CustomModeler from './customModeler'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: '',
   components: {},
@@ -28,6 +41,7 @@ export default {
   },
 // 方法集合
   methods: {
+    ...mapMutations(['TOGGLENODEVISIBLE']),
     init () {
     // 获取到属性ref为“canvas”的dom节点
     const canvas = this.$refs.canvas
@@ -56,10 +70,26 @@ export default {
     },
     success () {
         // console.log('创建成功!')
+    },
+    close () {
+      // window.localStorage.setItem('nodeVisible', 'false')
+      this.TOGGLENODEVISIBLE(false)
     }
   },
 // 计算属性
-  computed: {}
+  computed: {
+    ...mapState({
+      bpmnNodeInfo: state => state.bpmn.nodeInfo,
+      bpmnNodeVisible: state => state.bpmn.nodeVisible
+    })
+    // bpmnNodeInfo () {
+    //   return JSON.parse(window.localStorage.getItem('nodeInfo'))
+    // },
+    // bpmnNodeVisible () { // 好像不能监听到它的改变, 我就弃用了
+    //   console.log(JSON.parse(window.localStorage.getItem('nodeVisible')))
+    //   return JSON.parse(window.localStorage.getItem('nodeVisible'))
+    // }
+  }
 }
 </script>
 
@@ -78,5 +108,32 @@ export default {
 	right: 0;
 	top: 0;
 	width: 300px;
+}
+.modal {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.modal-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.modal-ctx {
+  position: absolute;
+  width: 300px;
+  height: 250px;
+  background-color: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 5px 2px rgba(225, 225, 225, 0.8);
+}
+.modal-item {
+  padding: 10px;
+  width: 100%;
 }
 </style>
