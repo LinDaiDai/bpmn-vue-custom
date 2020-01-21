@@ -1,9 +1,10 @@
 export default class CustomContextPad {
-    constructor(config, contextPad, create, elementFactory, injector, translate, modeling) {
+    constructor(config, contextPad, create, elementFactory, injector, translate, modeling, bpmnFactory) {
         this.create = create;
         this.elementFactory = elementFactory;
         this.translate = translate;
         this.modeling = modeling;
+        this.bpmnFactory = bpmnFactory;
 
         if (config.autoPlace !== false) {
             this.autoPlace = injector.get('autoPlace', false);
@@ -18,7 +19,8 @@ export default class CustomContextPad {
             create,
             elementFactory,
             translate,
-            modeling
+            modeling,
+            bpmnFactory
         } = this;
         // 删除功能
         function removeElement(e) {
@@ -66,6 +68,19 @@ export default class CustomContextPad {
                 }
             }
         }
+
+        function appendAndClickAnnotation(color) {
+            return function(event, element) {
+                const businessObject = bpmnFactory.create('bpmn:TextAnnotation');
+                if (color) {
+                    businessObject.color = color
+                }
+                const shape = elementFactory.createShape({ type: 'bpmn:TextAnnotation', businessObject });
+                autoPlace.append(element, shape);
+                console.log(shape)
+                    // window.open('https://www.baidu.com')
+            }
+        }
         return {
             'append.lindaidai-task': {
                 group: 'model',
@@ -77,7 +92,23 @@ export default class CustomContextPad {
                 }
             },
             'edit': editElement(),
-            'delete': deleteElement()
+            'delete': deleteElement(),
+            'append.text-annotation': {
+                group: 'model',
+                className: 'bpmn-icon-text-annotation',
+                title: '添加自定义text-annotation并能进行跳转',
+                action: {
+                    click: appendAndClickAnnotation
+                }
+            },
+            'append.green-text-annotation': {
+                group: 'model',
+                className: 'bpmn-icon-text-annotation green-text-annotation',
+                title: '绿色的注释',
+                action: {
+                    click: appendAndClickAnnotation('green')
+                }
+            }
         }
     }
 }
@@ -89,5 +120,6 @@ CustomContextPad.$inject = [
     'elementFactory',
     'injector',
     'translate',
-    'modeling'
+    'modeling',
+    'bpmnFactory'
 ];

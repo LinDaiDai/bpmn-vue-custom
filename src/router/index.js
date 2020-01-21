@@ -25,6 +25,11 @@ const routes = [{
         path: '/custom-context-pad',
         component: () =>
             import ('../components/custom-context-pad')
+    },
+    {
+        path: '/custom-properties-panel',
+        component: () =>
+            import ('../components/custom-properties-panel')
     }
 ]
 

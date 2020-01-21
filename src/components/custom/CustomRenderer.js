@@ -47,6 +47,12 @@ export default class CustomRenderer extends BaseRenderer {
                 console.log(text)
             }
             return customIcon
+        } else if (type === 'bpmn:TextAnnotation' && element.businessObject.color) {
+            console.log('我是绿色的')
+            let color = element.businessObject.color
+            element.businessObject.di.set('bioc:stroke', color)
+            const shape = this.bpmnRenderer.drawShape(parentNode, element)
+            return shape
         }
         const shape = this.bpmnRenderer.drawShape(parentNode, element)
         return shape

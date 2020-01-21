@@ -27,8 +27,11 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
             const shape = elementFactory.createShape({
                 type: 'bpmn:Task'
             });
+            const label = elementFactory.createLabel();
             console.log(shape) // 只在拖动或者点击时触发
+            console.log(label) // 只在拖动或者点击时触发
             create.start(event, shape);
+            // create.start(event, label);
         }
     }
 

@@ -2,20 +2,42 @@
 import inherits from 'inherits'
 
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer'
-
+import {
+    isObject,
+    assign,
+    forEach
+} from 'min-dash';
 import {
     append as svgAppend,
-    create as svgCreate
+    create as svgCreate,
+    classes as svgClasses
 } from 'tiny-svg'
 
 import { customElements, customConfig, hasLabelElements } from '../../utils/util'
 /**
  * A renderer that knows how to render custom elements.
  */
-export default function CustomRenderer(eventBus, styles) {
+export default function CustomRenderer(eventBus, styles, textRenderer) {
     BaseRenderer.call(this, eventBus, 2000)
 
     var computeStyle = styles.computeStyle
+
+    function renderLabel(parentGfx, label, options) {
+
+        options = assign({
+            size: {
+                width: 100
+            }
+        }, options);
+
+        var text = textRenderer.createText(label || '', options);
+
+        svgClasses(text).add('djs-label');
+
+        svgAppend(parentGfx, text);
+
+        return text;
+    }
 
     this.drawCustomElements = function(parentNode, element) {
         console.log(element)
@@ -33,17 +55,18 @@ export default function CustomRenderer(eventBus, styles) {
                 console.log(element.labels.length)
                 console.log(element.label)
                     // 判断是否有name属性来决定是否要渲染出label
-                if (!hasLabelElements.includes(type) && element.businessObject.name) {
-                    const text = svgCreate('text', {
-                        x: attr.x,
-                        y: attr.y + attr.height + 20,
-                        "font-size": "14",
-                        "fill": "#000"
-                    })
-                    text.innerHTML = element.businessObject.name
-                    svgAppend(parentNode, text)
-                    console.log(text)
-                }
+                    // if (!hasLabelElements.includes(type) && element.businessObject.name) {
+                    //     const text = svgCreate('text', {
+                    //         x: attr.x,
+                    //         y: attr.y + attr.height + 20,
+                    //         "font-size": "14",
+                    //         "fill": "#000"
+                    //     })
+                    //     text.innerHTML = element.businessObject.name
+                    //     svgAppend(parentNode, text)
+                    //     console.log(text)
+                    // }
+                renderLabel(parentNode, element.label)
                 return customIcon
             }
             const shape = this.bpmnRenderer.drawShape(parentNode, element)
@@ -56,7 +79,7 @@ export default function CustomRenderer(eventBus, styles) {
 
 inherits(CustomRenderer, BaseRenderer)
 
-CustomRenderer.$inject = ['eventBus', 'styles']
+CustomRenderer.$inject = ['eventBus', 'styles', 'textRenderer']
 
 CustomRenderer.prototype.canRender = function(element) {
     // ignore labels

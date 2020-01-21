@@ -79,4 +79,9 @@
     box-sizing: border-box;
     background-size: 94%;
     transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+.green-text-annotation.bpmn-icon-text-annotation {
+    color: green;
 }
