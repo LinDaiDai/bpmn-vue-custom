@@ -66,7 +66,7 @@ export default function CustomRenderer(eventBus, styles, textRenderer) {
                     //     svgAppend(parentNode, text)
                     //     console.log(text)
                     // }
-                renderLabel(parentNode, element.label)
+                    // renderLabel(parentNode, element.label)
                 return customIcon
             }
             const shape = this.bpmnRenderer.drawShape(parentNode, element)
@@ -88,7 +88,11 @@ CustomRenderer.prototype.canRender = function(element) {
 }
 
 CustomRenderer.prototype.drawShape = function(p, element) {
-    return this.drawCustomElements(p, element)
+    console.log(element)
+    console.log(element.type)
+    if (customElements.includes(element.type)) {
+        return this.drawCustomElements(p, element)
+    }
 }
 
 CustomRenderer.prototype.getShapePath = function(shape) {

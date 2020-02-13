@@ -94,9 +94,9 @@ export default {
       const modeling = this.bpmnModeler.get('modeling')
       const elementRegistry = this.bpmnModeler.get('elementRegistry')
       // console.log(Object.keys(eventBus._listeners))
-      const eventTypes = ['element.click', 'element.changed']
+      // const eventTypes = ['element.click', 'element.changed']
       // const eventTypes = Object.keys(eventBus._listeners)
-      // const eventTypes = ['directEditing.complete']
+      const eventTypes = ['directEditing.activate', 'directEditing.complete']
       // const eventTypes = ['interactionEvents.updateHit', 'directEditing.complete']
       console.log(elementRegistry.getAll('bpmn:StartEvent'))
       eventTypes.forEach(function(eventType) {

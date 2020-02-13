@@ -44,6 +44,15 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
         }
     }
 
+    function createGateway() {
+        return function(event) {
+            const shape = elementFactory.createShape({
+                type: 'bpmn:ExclusiveGateway'
+            });
+            create.start(event, shape);
+        }
+    }
+
     return {
         'create.start-event': {
             group: 'event',
@@ -61,6 +70,15 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
             action: {
                 dragstart: createTask(),
                 click: createTask()
+            }
+        },
+        'create.exclusive-gateway': {
+            group: 'gateway',
+            className: 'bpmn-icon-gateway-none',
+            title: '创建一个网关',
+            action: {
+                dragstart: createGateway(),
+                click: createGateway()
             }
         }
     }

@@ -11,10 +11,11 @@ import { is } from 'bpmn-js/lib/util/ModelUtil';
 const HIGH_PRIORITY = 1500
 
 export default class CustomRenderer extends BaseRenderer {
-    constructor(eventBus, bpmnRenderer) {
+    constructor(eventBus, bpmnRenderer, modeling) {
         super(eventBus, HIGH_PRIORITY);
 
         this.bpmnRenderer = bpmnRenderer;
+        this.modeling = modeling;
     }
 
     canRender(element) {
@@ -46,14 +47,21 @@ export default class CustomRenderer extends BaseRenderer {
                 svgAppend(parentNode, text)
                 console.log(text)
             }
+            // this.modeling.resizeShape(element, {
+            //     x: element.x,
+            //     y: element.y,
+            //     width: element['width'] / 2,
+            //     height: element['height'] / 2
+            // })
             return customIcon
-        } else if (type === 'bpmn:TextAnnotation' && element.businessObject.color) {
-            console.log('我是绿色的')
-            let color = element.businessObject.color
-            element.businessObject.di.set('bioc:stroke', color)
-            const shape = this.bpmnRenderer.drawShape(parentNode, element)
-            return shape
         }
+        // else if (type === 'bpmn:TextAnnotation' && element.businessObject.color) {
+        //     console.log('我是绿色的')
+        //     let color = element.businessObject.color
+        //     element.businessObject.di.set('bioc:stroke', color)
+        //     const shape = this.bpmnRenderer.drawShape(parentNode, element)
+        //     return shape
+        // }
         const shape = this.bpmnRenderer.drawShape(parentNode, element)
         return shape
     }
@@ -63,4 +71,4 @@ export default class CustomRenderer extends BaseRenderer {
     }
 }
 
-CustomRenderer.$inject = ['eventBus', 'bpmnRenderer'];
+CustomRenderer.$inject = ['eventBus', 'bpmnRenderer', 'modeling'];

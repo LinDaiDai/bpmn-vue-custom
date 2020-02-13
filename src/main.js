@@ -10,7 +10,7 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 import 'bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css'
 // 引入全局的css
-import './css/app.css'
+import '@/css/app.css'
 
 new Vue({
     router,
