@@ -13,6 +13,9 @@ module.exports = {
             .test(/.(bpmn|xml)$/)
             .use('raw-loader')
             .loader('raw-loader')
+            // .options({
+            //     esModule: false
+            // })
             .end()
     }
 }

@@ -1,10 +1,11 @@
 /**
  * A palette that allows you to create BPMN _and_ custom elements.
  */
-export default function PaletteProvider(palette, create, elementFactory, globalConnect) {
+export default function PaletteProvider(palette, create, elementFactory, globalConnect, bpmnFactory) {
     this.create = create
     this.elementFactory = elementFactory
     this.globalConnect = globalConnect
+    this.bpmnFactory = bpmnFactory
 
     palette.registerProvider(this)
 }
@@ -13,19 +14,24 @@ PaletteProvider.$inject = [
     'palette',
     'create',
     'elementFactory',
-    'globalConnect'
+    'globalConnect',
+    'bpmnFactory'
 ]
 
 PaletteProvider.prototype.getPaletteEntries = function(element) {
     const {
         create,
-        elementFactory
+        elementFactory,
+        bpmnFactory
     } = this;
 
     function createTask() {
         return function(event) {
+            const businessObject = bpmnFactory.create('bpmn:Task', { custom: 2 });
+            // businessObject['custom'] = 1 // 这样不行
             const shape = elementFactory.createShape({
-                type: 'bpmn:Task'
+                type: 'bpmn:Task',
+                businessObject
             });
             const label = elementFactory.createLabel();
             console.log(shape) // 只在拖动或者点击时触发

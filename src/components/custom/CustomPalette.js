@@ -19,6 +19,7 @@ export default class CustomPalette {
         function createTask() {
             return function(event) {
                 const businessObject = bpmnFactory.create('bpmn:Task');
+                businessObject['custom'] = 1
                 const shape = elementFactory.createShape({
                     type: 'bpmn:Task',
                     businessObject
@@ -32,6 +33,7 @@ export default class CustomPalette {
             'create.lindaidai-task': {
                 group: 'model',
                 className: 'icon-custom lindaidai-task',
+                // className: 'bpmn-icon-task red',
                 title: translate('创建一个类型为lindaidai-task的任务节点'),
                 action: {
                     dragstart: createTask(),

@@ -10,6 +10,11 @@
         </div>
       </div>
     </div>
+    <ul class="buttons">
+      <li>
+        <a ref="saveDiagram" href="javascript:" title="保存为bpmn">保存为bpmn</a>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -65,6 +70,7 @@ export default {
     },
     success() {
       // console.log('创建成功!')
+      this.addBpmnListener()
       this.addEventBusListener()
     },
     addEventBusListener() {
@@ -79,7 +85,7 @@ export default {
           console.log(e)
           if (!e || e.element.type == 'bpmn:Process') return
           if (eventType === 'element.changed') {
-            that.elementChanged(e)
+            // that.elementChanged(e)
           } else if (eventType === 'element.click') {
             console.log('点击了element', e.element)
             var shape = e.element ? elementRegistry.get(e.element.id) : e.shape
@@ -101,6 +107,38 @@ export default {
     close() {
       // window.localStorage.setItem('nodeVisible', 'false')
       this.TOGGLENODEVISIBLE(false)
+    },
+    addBpmnListener() {
+      const that = this
+      // 获取a标签dom节点
+      const downloadLink = this.$refs.saveDiagram
+      // 给图绑定事件，当图有发生改变就会触发这个事件
+      this.bpmnModeler.on('commandStack.changed', function() {
+        that.saveDiagram(function(err, xml) {
+          that.setEncoded(downloadLink, 'diagram.bpmn', err ? null : xml)
+        })
+      })
+    },
+    // 下载为bpmn格式,done是个函数，调用的时候传入的
+    saveDiagram(done) {
+      // 把传入的done再传给bpmn原型的saveXML函数调用
+      this.bpmnModeler.saveXML({ format: true }, function(err, xml) {
+        done(err, xml)
+      })
+    },
+    // 当图发生改变的时候会调用这个函数，这个data就是图的xml
+    setEncoded(link, name, data) {
+      // 把xml转换为URI，下载要用到的
+      const encodedData = encodeURIComponent(data)
+      // 下载图的具体操作,改变a的属性，className令a标签可点击，href令能下载，download是下载的文件的名字
+      console.log(link, name, data)
+      let xmlFile = new File([data], 'test.bpmn')
+      //   console.log(xmlFile)
+      if (data) {
+        link.className = 'active'
+        link.href = 'data:application/bpmn20-xml;charset=UTF-8,' + encodedData
+        link.download = name
+      }
     }
   },
   // 计算属性
@@ -135,6 +173,28 @@ export default {
   right: 0;
   top: 0;
   width: 300px;
+}
+.buttons {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+}
+.buttons li {
+  display: inline-block;
+  margin: 5px;
+}
+.buttons li a {
+  color: #999;
+  background: #eee;
+  cursor: not-allowed;
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+}
+.buttons li a.active {
+  color: #333;
+  background: #fff;
+  cursor: pointer;
 }
 .modal {
   background-color: rgba(0, 0, 0, 0.6);
