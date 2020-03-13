@@ -14,7 +14,7 @@ module.exports = {
             .use('raw-loader')
             .loader('raw-loader')
             // .options({
-            //     esModule: false
+            //     esModule: true
             // })
             .end()
     }

@@ -41,7 +41,7 @@ export default {
         parent: '#js-properties-panel'
       },
       additionalModules: [
-        // 左边工具栏以及节点
+        // 右侧的属性栏
         propertiesProviderModule,
         customModule
       ]

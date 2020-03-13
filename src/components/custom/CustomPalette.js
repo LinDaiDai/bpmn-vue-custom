@@ -33,7 +33,7 @@ export default class CustomPalette {
             'create.lindaidai-task': {
                 group: 'model',
                 className: 'icon-custom lindaidai-task',
-                // className: 'bpmn-icon-task red',
+                // className: 'bpmn-icon-user-task',
                 title: translate('创建一个类型为lindaidai-task的任务节点'),
                 action: {
                     dragstart: createTask(),

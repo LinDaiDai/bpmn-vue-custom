@@ -8,7 +8,6 @@
 <script>
 // 引入相关的依赖
 import BpmnModeler from 'bpmn-js/lib/Modeler'
-// import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda'
 import { xmlStr } from '../mock/xmlStr'
 import customModule from './custom/ImportJS/onlyContextPad'
 export default {
@@ -41,8 +40,6 @@ export default {
         parent: '#js-properties-panel'
       },
       additionalModules: [
-        // 左边工具栏以及节点
-        // propertiesProviderModule,
         customModule
       ]
     })

@@ -13,7 +13,6 @@
 <script>
 // 引入相关的依赖
 import BpmnModeler from 'bpmn-js/lib/Modeler'
-// import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda'
 import { xmlStr } from '../mock/xmlStr'
 const bpmnXml = require('../mock/diagram.bpmn')
 import customModule from './custom/ImportJS/onlyRenderer'
@@ -47,8 +46,6 @@ export default {
           parent: '#js-properties-panel'
         },
         additionalModules: [
-          // 左边工具栏以及节点
-          // propertiesProviderModule,
           customModule
         ]
       })
@@ -59,7 +56,7 @@ export default {
       console.log(typeof bpmnXml) // object
       console.log(bpmnXml.default)
       // 将字符串转换成图显示出来
-      this.bpmnModeler.importXML(bpmnXml, err => {
+      this.bpmnModeler.importXML(bpmnXml.default, err => {
         if (err) {
           // console.error(err)
         } else {
